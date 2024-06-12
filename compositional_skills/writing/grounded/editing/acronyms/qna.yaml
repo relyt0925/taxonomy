@@ -1,0 +1,107 @@
+version: 2
+task_description: |
+    Teaching the model to correctly edit given text based on the rules given in the following style guide:
+    1. Do not use abbreviations or acronyms that the reader would not quickly recognize, instead expand the acronym.
+    2. Do not follow an organization's full name with an abbreviation or acronym in parentheses.
+created_by: Raymondli9112
+seed_examples:
+- context: |
+    With level 2 and fast charging stations across the state of Florida, FPL Evolution makes it easy to drive electric.
+  question: What does the acronym FPL stand for in the given context?
+  answer: Florida Power & Light
+- context: Electric Vehicles EV have revolutionized the automotive industry
+  question: |
+    Given the following document, correct each sentence that has an acronym so that all acronyms are expanded based
+    on the rules of the style guide. First give the incorrect version of the sentence and then provide the
+    corrected version of that respective sentence. After all sentences with an acronym have been edited,
+    update the entire document and redisplay in its final and correct form, preserving the original format the
+    best you can. If there are no acronyms to be expanded, please output the following statement:
+    "The document looks great :)"
+  answer: |
+    The following sentences were identified as having a style issue described by the style guide identifier:
+
+    "Electric vehicles EV have revolutionized the automotive industry."
+
+    and was corrected as
+
+    "Electric vehicles have revolutionized the automotive industry."
+
+    After these corrections, the entire document in its corrected form is as follows:
+    "Electric vehicles have revolutionized the automotive industry."
+- context: |
+    The Chief Technology Officer revealed plans to enhance the company's IT infrastructure at the Q3 meeting.
+    This upgrade will include implementing a new Enterprise Resource Planning system to streamline operations
+    and improve efficiency.
+  question: |
+    Given the following document, correct each sentence that has an acronym so that all acronyms are expanded based
+    on the rules of the style guide. First give the incorrect version of the sentence and then provide the
+    corrected version of that respective sentence. After all sentences with an acronym have been edited,
+    update the entire document and redisplay in its final and correct form, preserving the original format the
+    best you can. If there are no acronyms to be expanded, please output the following statement:
+    "The document looks great :)"
+  answer: The document looks great! :)
+- context: |
+    Use the fan. Don't use AC. With level 2 and fast charging stations across the state of Florida,
+    FPL EVolution makes it easy to drive electric.
+  question: |
+    Given the following document, correct each sentence that has an acronym so that all acronyms are expanded based
+    on the rules of the style guide. First give the incorrect version of the sentence and then provide the
+    corrected version of that respective sentence. After all sentences with an acronym have been edited,
+    update the entire document and redisplay in its final and correct form, preserving the original format the
+    best you can. If there are no acronyms to be expanded, please output the following statement:
+    "The document looks great :)"
+  answer: |
+    The following sentences were identified as having a style issue described by the style guide identifier:
+
+    "Use the fan. Don't use AC."
+
+    and was corrected as
+
+    "Use the fan. Don't use air conditioning."
+    _________________________________________
+
+    "With level 2 and fast charging stations across the state of Florida, FPL EVolution makes it easy to drive
+    electric."
+
+    and was corrected as
+
+    "With level 2 and fast charging stations across the state of Florida, Florida Power & Light EVolution
+    makes it easy to drive electric."
+
+
+    After these corrections, the entire document in its corrected form is as follows:
+    "Use the fan. Don't use air conditioning. With level 2 and fast charging stations across the state of Florida,
+    Florida Power & Light EVolution makes it easy to drive electric."
+- context: |
+    The CTO revealed plans to enhance the company's IT infrastructure at the meeting. This upgrade will include
+    implementing a new ERP system to streamline operations and improve efficiency.
+  question: |
+    Given the following document, correct each sentence that has an acronym so that all acronyms are expanded based
+    on the rules of the style guide. First give the incorrect version of the sentence and then provide the
+    corrected version of that respective sentence. After all sentences with an acronym have been edited,
+    update the entire document and redisplay in its final and correct form, preserving the original format the
+    best you can. If there are no acronyms to be expanded, please output the following statement:
+    "The document looks great :)"
+  answer: |
+    The following sentences were identified as having a style issue described by the style guide identifier:
+
+    "The CTO revealed plans to enhance the company's IT infrastructure at the meeting."
+
+    and was corrected as
+
+    "The Chief Technology Officer revealed plans to enhance the company's information technology infrastructure
+    at the meeting."
+    _________________________________________
+
+    "This upgrade will include implementing a new ERP system to streamline operations and improve efficiency."
+
+    and was corrected as
+
+    "This upgrade will include implementing a new enterprise resource planning system to streamline
+    operations and improve efficiency"
+
+
+    After these corrections, the entire document in its corrected form is as follows:
+    "The Chief Technology Officer revealed plans to enhance the company's information technology
+    infrastructure at the meeting. This upgrade will include implementing a new enterprise resource planning system
+    to streamline operations and improve efficiency"
