@@ -18,6 +18,12 @@ seed_examples:
     letters are G, A, N, L, U, A,G.
 
     '
+- answer: 'BUFFALO
+
+    '
+  question: 'Complete the word pattern: B \_ \_ \_ A \_ \_  to create an English word
+
+    '
 task_description: 'To teach a language model about word patterns
 
   '
