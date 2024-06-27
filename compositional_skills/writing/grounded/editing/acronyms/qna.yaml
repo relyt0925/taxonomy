@@ -3,7 +3,7 @@ task_description: |
     Teaching the model to correctly edit given text based on the rules given in the following style guide:
     1. Do not use abbreviations or acronyms that the reader would not quickly recognize, instead expand the acronym.
     2. Do not follow an organization's full name with an abbreviation or acronym in parentheses.
-created_by: Raymondli9112
+created_by: relyt0925
 seed_examples:
 - context: |
     With level 2 and fast charging stations across the state of Florida, FPL Evolution makes it easy to drive electric.
