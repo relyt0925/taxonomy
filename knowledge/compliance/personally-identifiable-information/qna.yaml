@@ -1,0 +1,57 @@
+version: 3
+created_by: relyt0925
+domain: personally-identifiable-information
+seed_examples:
+  - context: "hii"
+    questions_and_answers:
+      - answer: "Examples of Personally Identifiable Information include social security numbers, names, and addresses."
+        question: What are examples of personally identifiable information?
+      - answer: "Direct identifiers and indirect identifiers are the two types of Personally Identifiable Information."
+        question: What are the two types of Personally Identifiable Information?
+      - answer: "FirstName LastName. An example name is James Smith"
+        question: What is the format of a typical Western name with an example?
+  - context: "hiiiiiiii"
+    questions_and_answers:
+      - answer: "Examples of Personally Identifiable Information include social security numbers, names, and addresses."
+        question: What are examples of personally identifiable information?
+      - answer: "Direct identifiers and indirect identifiers are the two types of Personally Identifiable Information."
+        question: What are the two types of Personally Identifiable Information?
+      - answer: "FirstName LastName. An example name is James Smith"
+        question: What is the format of a typical Western name with an example?
+  - context: "hiiiiiiiiiii"
+    questions_and_answers:
+      - answer: "Examples of Personally Identifiable Information include social security numbers, names, and addresses."
+        question: What are examples of personally identifiable information?
+      - answer: "Direct identifiers and indirect identifiers are the two types of Personally Identifiable Information."
+        question: What are the two types of Personally Identifiable Information?
+      - answer: "FirstName LastName. An example name is James Smith"
+        question: What is the format of a typical Western name with an example?
+  - context: "hiiiiiiiiiiiiii"
+    questions_and_answers:
+      - answer: "Examples of Personally Identifiable Information include social security numbers, names, and addresses."
+        question: What are examples of personally identifiable information?
+      - answer: "Direct identifiers and indirect identifiers are the two types of Personally Identifiable Information."
+        question: What are the two types of Personally Identifiable Information?
+      - answer: "FirstName LastName. An example name is James Smith"
+        question: What is the format of a typical Western name with an example?
+  - context: "hiiiiiiiiiiiiiiiiii"
+    questions_and_answers:
+      - answer: "Examples of Personally Identifiable Information include social security numbers, names, and addresses."
+        question: What are examples of personally identifiable information?
+      - answer: "PII is the acronym for Personally Identifiable Information."
+        question: What is the acronym for Personally Identifiable Information?
+      - answer: "Direct identifiers and indirect identifiers are the two types of Personally Identifiable Information."
+        question: What are the two types of Personally Identifiable Information?
+      - answer: "FirstName LastName. An example name is James Smith"
+        question: What is the format of a typical Western name with an example?
+      - answer: "The format for a social security number is nine digits in the following format: 000-00-0000"
+        question: What is the format of a social security number?
+document_outline: "To teach a language model facts about Personally Identifiable Information"
+document:
+  repo: https://github.ibm.com/lisowski/pii-knowledge-ref
+  commit: 506f1929e6185a4ad9695a45014de7a71c2a1582
+  patterns:
+    - pii-data.md
+    - pii-ibm-data.md
+    - pii-personal-names.md
+    - pii-social-security.md
