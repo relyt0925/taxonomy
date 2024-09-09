@@ -512,8 +512,8 @@ seed_examples:
       like Finder.app or in command-line interfaces like Terminal.app. However, this
       technique can be identified through file monitoring, as it is uncommon for filenames
       to have trailing spaces. Additionally, processes that execute from binaries
-      with non-standard file extensions are considered suspicious and can serve as
-      indicators of this technique being used.
+      with non-standard file extensions are considered suspicious and can serve
+      as indicators of this technique being used.
     question: What makes detecting the "space after filename" technique challenging
       for users, and how can it be identified?
 document:
