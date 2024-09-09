@@ -30,7 +30,8 @@ seed_examples:
     \ converter firmware, rendering the devices not operational. This meant that communication\
     \ to the downstream serial devices was either not possible or more difficult.\
     \ (Citation: Booz Allen Hamilton) |\n\nID: S0604 | Name: Industroyer | Source\
-    \ Type: software |  Mapping Type: uses |  Mapping description: In [Industroyer](https://attack.mitre.org/software/S0604)\
+    \ Type: software |  Mapping Type: uses |  Mapping description: \
+    \ In [Industroyer](https://attack.mitre.org/software/S0604)\
     \ the first COM port from the configuration file is used for the actual communication\
     \ and the two other COM ports are just opened to prevent other processes accessing\
     \ them. Thus, the IEC 101 payload component is able to take over and maintain\
@@ -97,7 +98,8 @@ seed_examples:
     ChangeNTLM July 2017)
 
 
-    DCSync functionality has been included in the "lsadump" module in [Mimikatz](https://attack.mitre.org/software/S0002).(Citation:
+    DCSync functionality has been included in the "lsadump" module in 
+    [Mimikatz](https://attack.mitre.org/software/S0002).(Citation:
     GitHub Mimikatz lsadump Module) Lsadump also includes NetSync, which performs
     DCSync over a legacy replication protocol.(Citation: Microsoft NRPC Dec 2017)
 
@@ -226,7 +228,8 @@ seed_examples:
     \ sharing system that uses the RFB (\u201Cremote framebuffer\u201D) protocol to\
     \ enable users to remotely control another computer\u2019s display by relaying\
     \ the screen, mouse, and keyboard inputs over the network.(Citation: The Remote\
-    \ Framebuffer Protocol)\n\nVNC differs from [Remote Desktop Protocol](https://attack.mitre.org/techniques/T1021/001)\
+    \ Framebuffer Protocol)\n\nVNC differs from \
+    \[Remote Desktop Protocol](https://attack.mitre.org/techniques/T1021/001)\
     \ as VNC is screen-sharing software rather than resource-sharing software. By\
     \ default, VNC uses the system's authentication, but it can be configured to use\
     \ credentials specific to VNC.(Citation: MacOS VNC software for Remote Desktop)(Citation:\
@@ -273,7 +276,8 @@ seed_examples:
     \ Type: software |  Mapping Type: uses |  Mapping description: [WarzoneRAT](https://attack.mitre.org/software/S0670)\
     \ has the ability of performing remote desktop access via a VNC console.(Citation:\
     \ Check Point Warzone Feb 2020) |\n\nID: S0412 | Name: ZxShell | Source Type:\
-    \ software |  Mapping Type: uses |  Mapping description: [ZxShell](https://attack.mitre.org/software/S0412)\
+    \ software |  Mapping Type: uses |  Mapping description: \
+    \[ZxShell](https://attack.mitre.org/software/S0412)\
     \ supports functionality for VNC sessions.(Citation: Talos ZxShell Oct 2014) |\n\
     \nMitigations:\n\nMitigation ID: M1047 | Mitigation name: Audit | Description:\
     \ Perform audits or scans of systems, permissions, insecure software, insecure\
@@ -336,7 +340,8 @@ seed_examples:
     \ would otherwise help defenders with discovery. (Citation: Linux/Cdorked.A We\
     \ Live Security Analysis) Payloads may also be split into separate, seemingly\
     \ benign files that only reveal malicious functionality when reassembled. (Citation:\
-    \ Carbon Black Obfuscation Sept 2016)\n\nAdversaries may also abuse [Command Obfuscation](https://attack.mitre.org/techniques/T1027/010)\
+    \ Carbon Black Obfuscation Sept 2016)\n\nAdversaries may also abuse\
+    \[Command Obfuscation](https://attack.mitre.org/techniques/T1027/010)\
     \ to obscure commands executed from payloads or directly via [Command and Scripting\
     \ Interpreter](https://attack.mitre.org/techniques/T1059). Environment variables,\
     \ aliases, characters, and other platform/language specific semantics can be used\
@@ -352,7 +357,8 @@ seed_examples:
     \ [Sandworm Team](https://attack.mitre.org/groups/G0034) used heavily obfuscated\
     \ code with [Industroyer](https://attack.mitre.org/software/S0604) in its Windows\
     \ Notepad backdoor.(Citation: ESET Industroyer) |\n\nID: C0015 | Name: C0015 |\
-    \ Source Type: campaign |  Mapping Type: uses |  Mapping description: During [C0015](https://attack.mitre.org/campaigns/C0015),\
+    \ Source Type: campaign |  Mapping Type: uses |  Mapping description: During \
+    \[C0015](https://attack.mitre.org/campaigns/C0015),\
     \ the threat actors used Base64-encoded strings.(Citation: DFIR Conti Bazar Nov\
     \ 2021) |\n\nID: C0017 | Name: C0017 | Source Type: campaign |  Mapping Type:\
     \ uses |  Mapping description: During [C0017](https://attack.mitre.org/campaigns/C0017),\
@@ -509,8 +515,8 @@ seed_examples:
       indicators of this technique being used.
     question: What makes detecting the "space after filename" technique challenging
       for users, and how can it be identified?
-    document:
-      repo: https://github.com/yosimass1/knowledge
-      commit: 1e26779b22c19d68666264b4ca88ca456f1d3e2e
-      patterns:
-        - mitre/*.md
+document:
+  repo: https://github.com/yosimass1/knowledge
+  commit: 1e26779b22c19d68666264b4ca88ca456f1d3e2e
+  patterns:
+    - mitre/*.md
