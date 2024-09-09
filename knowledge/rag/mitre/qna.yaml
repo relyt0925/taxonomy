@@ -98,7 +98,7 @@ seed_examples:
     ChangeNTLM July 2017)
 
 
-    DCSync functionality has been included in the "lsadump" module in 
+    DCSync functionality has been included in the "lsadump" module in
     [Mimikatz](https://attack.mitre.org/software/S0002).(Citation:
     GitHub Mimikatz lsadump Module) Lsadump also includes NetSync, which performs
     DCSync over a legacy replication protocol.(Citation: Microsoft NRPC Dec 2017)
@@ -273,7 +273,8 @@ seed_examples:
     \ VNC module to monitor the victim and collect information to pivot to valuable\
     \ systems on the network (Citation: Trickbot VNC module July 2021)(Citation: Bitdefender\
     \ Trickbot VNC module Whitepaper 2021) |\n\nID: S0670 | Name: WarzoneRAT | Source\
-    \ Type: software |  Mapping Type: uses |  Mapping description: [WarzoneRAT](https://attack.mitre.org/software/S0670)\
+    \ Type: software |  Mapping Type: uses |  Mapping description:\
+    \ [WarzoneRAT](https://attack.mitre.org/software/S0670)\
     \ has the ability of performing remote desktop access via a VNC console.(Citation:\
     \ Check Point Warzone Feb 2020) |\n\nID: S0412 | Name: ZxShell | Source Type:\
     \ software |  Mapping Type: uses |  Mapping description: \
