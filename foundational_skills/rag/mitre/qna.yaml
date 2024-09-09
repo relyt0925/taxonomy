@@ -508,3 +508,8 @@ seed_examples:
       indicators of this technique being used.
     question: What makes detecting the "space after filename" technique challenging
       for users, and how can it be identified?
+    document:
+      repo: https://github.com/yosimass1/knowledge
+      commit: 1e26779b22c19d68666264b4ca88ca456f1d3e2e
+      patterns:
+        - mitre/*.md
