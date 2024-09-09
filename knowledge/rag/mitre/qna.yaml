@@ -1,0 +1,515 @@
+created_by: yosimass
+document_outline: seed examples for mitre attack
+domain: mitre
+seed_examples:
+- context: "Title: Block Serial COM\n\nDescription: Adversaries may block access to\
+    \ serial COM to prevent instructions or configurations from reaching target devices.\
+    \ Serial Communication ports (COM) allow communication with control system devices.\
+    \ Devices can receive command and configuration messages over such serial COM.\
+    \ Devices also use serial COM to send command and reporting messages. Blocking\
+    \ device serial COM may also block command messages and block reporting messages.\
+    \ \n\nA serial to Ethernet converter is often connected to a serial COM to facilitate\
+    \ communication between serial and Ethernet devices. One approach to blocking\
+    \ a serial COM would be to create and hold open a TCP session with the Ethernet\
+    \ side of the converter. A serial to Ethernet converter may have a few ports open\
+    \ to facilitate multiple communications. For example, if there are three serial\
+    \ COM available -- 1, 2 and 3 --, the converter might be listening on the corresponding\
+    \ ports 20001, 20002, and 20003. If a TCP/IP connection is opened with one of\
+    \ these ports and held open, then the port will be unavailable for use by another\
+    \ party. One way the adversary could achieve this would be to initiate a TCP session\
+    \ with the serial to Ethernet converter at 10.0.0.1 via Telnet on serial port\
+    \ 1 with the following command: telnet 10.0.0.1 20001.\n\nMetadata:\n\nID: T0805\n\
+    \nRelated Tactics (the tactic objectives that T0805 can be used to accomplish):\
+    \ Inhibit Response Function\n\nURL: https://attack.mitre.org/techniques/T0805\n\
+    \nPlatforms (the system the adversary is operating within): None\n\nProcedure\
+    \ Examples (usage examples):\n\nID: C0028 | Name: 2015 Ukraine Electric Power\
+    \ Attack | Source Type: campaign |  Mapping Type: uses |  Mapping description:\
+    \ During the [2015 Ukraine Electric Power Attack](https://attack.mitre.org/campaigns/C0028),\
+    \ [Sandworm Team](https://attack.mitre.org/groups/G0034) overwrote the serial-to-ethernet\
+    \ converter firmware, rendering the devices not operational. This meant that communication\
+    \ to the downstream serial devices was either not possible or more difficult.\
+    \ (Citation: Booz Allen Hamilton) |\n\nID: S0604 | Name: Industroyer | Source\
+    \ Type: software |  Mapping Type: uses |  Mapping description: In [Industroyer](https://attack.mitre.org/software/S0604)\
+    \ the first COM port from the configuration file is used for the actual communication\
+    \ and the two other COM ports are just opened to prevent other processes accessing\
+    \ them. Thus, the IEC 101 payload component is able to take over and maintain\
+    \ control of the RTU device. (Citation: Anton Cherepanov, ESET June 2017) |\n\n\
+    Mitigations:\n\nMitigation ID: M0807 | Mitigation name: Network Allowlists | Description:\
+    \ Network allowlists can be implemented through either host-based files or system\
+    \ hosts files to specify what connections (e.g., IP address, MAC address, port,\
+    \ protocol) can be made from a device. Allowlist techniques that operate at the\
+    \  application layer (e.g., DNP3, Modbus, HTTP) are addressed in [Filter Network\
+    \ Traffic](\n\nMitigation ID: M0930 | Mitigation name: Network Segmentation |\
+    \ Description: Architect sections of the network to isolate critical systems,\
+    \ functions, or resources. Use physical and logical segmentation to prevent access\
+    \ to potentially sensitive systems and information. Use a DMZ to contain any internet-facing\
+    \ services that should not be exposed from the internal network.  Restrict network\
+    \ access to only required systems and services. In addition, prevent systems from\
+    \ other networks or business functions (e.g., enterprise) from accessing critical\
+    \ process control systems. For example, in IEC 62443, systems within the same\
+    \ secure level should be grouped into a zone, and access to that zone is restricted\
+    \ by a conduit, or mechanism to restrict data flows between zones by segmenting\
+    \ the network. \n\nMitigation ID: M0810 | Mitigation name: Out-of-Band Communications\
+    \ Channel | Description: Have alternative methods to support communication requirements\
+    \ during communication failures and data integrity attacks. (Citation: National\
+    \ Institute of Standards and Technology April 2013)"
+  questions_and_answers:
+  - answer: Blocking access to serial COM ports in control systems can prevent command
+      and configuration messages from reaching target devices and stop reporting messages
+      from being sent. This could disrupt the functionality of the control systems
+      by inhibiting their ability to respond to commands or report status updates.
+    question: What is the purpose of blocking access to serial COM ports in control
+      systems?
+  - answer: An adversary might block a serial COM by creating and holding open a TCP
+      session with the Ethernet side of a serial to Ethernet converter. For example,
+      if a converter is listening on a specific port (e.g., port 20001 corresponding
+      to serial COM 1), the adversary could initiate a Telnet session to that port
+      and keep the connection open, making the port unavailable for legitimate use.
+    question: How might an adversary block a serial COM using a serial-to-Ethernet
+      converter?
+  - answer: 'Mitigation strategies include implementing network allowlists to specify
+      which connections are permitted, using network segmentation to isolate critical
+      systems, and establishing out-of-band communication channels to ensure communication
+      can continue during failures or attacks on data integrity. These strategies
+      help restrict access to critical ports and ensure alternative communication
+      methods are available.'
+    question: What are some mitigation strategies to protect against the blocking
+      of serial COM ports?
+- context: 'Title: OS Credential Dumping: DCSync
+
+
+    Description: Adversaries may attempt to access credentials and other sensitive
+    information by abusing a Windows Domain Controller''s application programming
+    interface (API)(Citation: Microsoft DRSR Dec 2017) (Citation: Microsoft GetNCCChanges)
+    (Citation: Samba DRSUAPI) (Citation: Wine API samlib.dll) to simulate the replication
+    process from a remote domain controller using a technique called DCSync.
+
+
+    Members of the Administrators, Domain Admins, and Enterprise Admin groups or computer
+    accounts on the domain controller are able to run DCSync to pull password data(Citation:
+    ADSecurity Mimikatz DCSync) from Active Directory, which may include current and
+    historical hashes of potentially useful accounts such as KRBTGT and Administrators.
+    The hashes can then in turn be used to create a [Golden Ticket](https://attack.mitre.org/techniques/T1558/001)
+    for use in [Pass the Ticket](https://attack.mitre.org/techniques/T1550/003)(Citation:
+    Harmj0y Mimikatz and DCSync) or change an account''s password as noted in [Account
+    Manipulation](https://attack.mitre.org/techniques/T1098).(Citation: InsiderThreat
+    ChangeNTLM July 2017)
+
+
+    DCSync functionality has been included in the "lsadump" module in [Mimikatz](https://attack.mitre.org/software/S0002).(Citation:
+    GitHub Mimikatz lsadump Module) Lsadump also includes NetSync, which performs
+    DCSync over a legacy replication protocol.(Citation: Microsoft NRPC Dec 2017)
+
+
+    Metadata:
+
+
+    ID: T1003.006
+
+
+    Related Tactics (the tactic objectives that T1003.006 can be used to accomplish):
+    Credential Access
+
+
+    Sub-technique of: T1003
+
+
+    URL: https://attack.mitre.org/techniques/T1003/006
+
+
+    Platforms (the system the adversary is operating within): Windows
+
+
+    Permissions  required (the lowest level of permission the adversary is required
+    to be operating within to perform T1003.006): Administrator
+
+
+    Procedure Examples (usage examples):
+
+
+    ID: C0027 | Name: C0027 | Source Type: campaign |  Mapping Type: uses |  Mapping
+    description: During [C0027](https://attack.mitre.org/campaigns/C0027), [Scattered
+    Spider](https://attack.mitre.org/groups/G1015) performed domain replication.(Citation:
+    Crowdstrike TELCO BPO Campaign December 2022) |
+
+
+    ID: C0014 | Name: Operation Wocao | Source Type: campaign |  Mapping Type: uses
+    |  Mapping description: During [Operation Wocao](https://attack.mitre.org/campaigns/C0014),
+    threat actors used [Mimikatz](https://attack.mitre.org/software/S0002)''s DCSync
+    to dump credentials from the memory of the targeted system.(Citation: FoxIT Wocao
+    December 2019) |
+
+
+    ID: C0024 | Name: SolarWinds Compromise | Source Type: campaign |  Mapping Type:
+    uses |  Mapping description: During the [SolarWinds Compromise](https://attack.mitre.org/campaigns/C0024),
+    [APT29](https://attack.mitre.org/groups/G0016) used privileged accounts to replicate
+    directory service data with domain controllers.(Citation: Microsoft 365 Defender
+    Solorigate)(Citation: Microsoft Deep Dive Solorigate January 2021)(Citation: CrowdStrike
+    StellarParticle January 2022) |
+
+
+    ID: G1006 | Name: Earth Lusca | Source Type: group |  Mapping Type: uses |  Mapping
+    description: [Earth Lusca](https://attack.mitre.org/groups/G1006) has used a <code>DCSync</code>
+    command with [Mimikatz](https://attack.mitre.org/software/S0002) to retrieve credentials
+    from an exploited controller.(Citation: TrendMicro EarthLusca 2022) |
+
+
+    ID: G1004 | Name: LAPSUS$ | Source Type: group |  Mapping Type: uses |  Mapping
+    description: [LAPSUS$](https://attack.mitre.org/groups/G1004) has used DCSync
+    attacks to gather credentials for privilege escalation routines.(Citation: MSTIC
+    DEV-0537 Mar 2022) |
+
+
+    ID: S0002 | Name: Mimikatz | Source Type: software |  Mapping Type: uses |  Mapping
+    description: [Mimikatz](https://attack.mitre.org/software/S0002) performs credential
+    dumping to obtain account and password information useful in gaining access to
+    additional systems and enterprise network resources. It contains functionality
+    to acquire information about credentials in many ways, including from DCSync/NetSync.(Citation:
+    Deply Mimikatz)(Citation: GitHub Mimikatz lsadump Module)(Citation: Directory
+    Services Internals DPAPI Backup Keys Oct 2015)(Citation: NCSC Joint Report Public
+    Tools)(Citation: Cobalt Strike Manual 4.3 November 2020) |
+
+
+    Mitigations:
+
+
+    Mitigation ID: M1015 | Mitigation name: Active Directory Configuration | Description:
+    Configure Active Directory to prevent use of certain techniques; use SID Filtering,
+    etc. |
+
+
+    Mitigation ID: M1027 | Mitigation name: Password Policies | Description: Set and
+    enforce secure password policies for accounts. |
+
+
+    Mitigation ID: M1026 | Mitigation name: Privileged Account Management | Description:
+    Manage the creation, modification, use, and permissions associated to privileged
+    accounts, including SYSTEM and root. |
+
+
+    Detection:
+
+
+    Monitor domain controller logs for replication requests and other unscheduled
+    activity possibly associated with DCSync.(Citation: Microsoft DRSR Dec 2017) (Citation:
+    Microsoft GetNCCChanges) (Citation: Samba DRSUAPI) Also monitor for network protocols(Citation:
+    Microsoft DRSR Dec 2017) (Citation: Microsoft NRPC Dec 2017) and other replication
+    requests(Citation: Microsoft SAMR) from IPs not associated with known domain controllers.(Citation:
+    AdSecurity DCSync Sept 2015)'
+  questions_and_answers:
+  - answer: DCSync is a technique that allows adversaries to simulate the replication
+      process of a Windows Domain Controller by abusing its API. Members of privileged
+      groups, like Administrators or Domain Admins, can use DCSync to extract password
+      data, including hashes of accounts such as KRBTGT and Administrators, from Active
+      Directory. These hashes can then be used for various attacks, such as creating
+      a Golden Ticket for Pass the Ticket attacks or changing an account's password.
+    question: What is DCSync, and how do adversaries use it?
+  - answer: Members of the Administrators, Domain Admins, and Enterprise Admin groups,
+      as well as computer accounts on the domain controller, can run DCSync. With
+      DCSync, they can pull password data, including current and historical account
+      hashes from Active Directory, which can then be exploited to create a Golden
+      Ticket, perform Pass the Ticket attacks, or manipulate account passwords.
+    question: Which groups or accounts are capable of running DCSync, and what can
+      they achieve with it?
+  - answer: 'Organizations can detect DCSync attacks by monitoring domain controller
+      logs for unexpected replication requests and other unusual activities that might
+      be associated with DCSync. Additionally, network protocols and replication requests
+      from IPs not associated with known domain controllers should be closely monitored.
+      To mitigate DCSync attacks, organizations should configure Active Directory
+      to prevent certain techniques, enforce strong password policies, and manage
+      privileged accounts carefully to limit access to critical systems.'
+    question: How can organizations detect and mitigate DCSync attacks?
+- context: "Title: Remote Services: VNC\n\nDescription: Adversaries may use [Valid\
+    \ Accounts](https://attack.mitre.org/techniques/T1078) to remotely control machines\
+    \ using Virtual Network Computing (VNC).  VNC is a platform-independent desktop\
+    \ sharing system that uses the RFB (\u201Cremote framebuffer\u201D) protocol to\
+    \ enable users to remotely control another computer\u2019s display by relaying\
+    \ the screen, mouse, and keyboard inputs over the network.(Citation: The Remote\
+    \ Framebuffer Protocol)\n\nVNC differs from [Remote Desktop Protocol](https://attack.mitre.org/techniques/T1021/001)\
+    \ as VNC is screen-sharing software rather than resource-sharing software. By\
+    \ default, VNC uses the system's authentication, but it can be configured to use\
+    \ credentials specific to VNC.(Citation: MacOS VNC software for Remote Desktop)(Citation:\
+    \ VNC Authentication)\n\nAdversaries may abuse VNC to perform malicious actions\
+    \ as the logged-on user such as opening documents, downloading files, and running\
+    \ arbitrary commands. An adversary could use VNC to remotely control and monitor\
+    \ a system to collect data and information to pivot to other systems within the\
+    \ network. Specific VNC libraries/implementations have also been susceptible to\
+    \ brute force attacks and memory usage exploitation.(Citation: Hijacking VNC)(Citation:\
+    \ macOS root VNC login without authentication)(Citation: VNC Vulnerabilities)(Citation:\
+    \ Offensive Security VNC Authentication Check)(Citation: Attacking VNC Servers\
+    \ PentestLab)(Citation: Havana authentication bug)\n\nMetadata:\n\nID: T1021.005\n\
+    \nRelated Tactics (the tactic objectives that T1021.005 can be used to accomplish):\
+    \ Lateral Movement\n\nSub-technique of: T1021\n\nURL: https://attack.mitre.org/techniques/T1021/005\n\
+    \nPlatforms (the system the adversary is operating within): Linux, Windows, macOS\n\
+    \nProcedure Examples (usage examples):\n\nID: G0046 | Name: FIN7 | Source Type:\
+    \ group |  Mapping Type: uses |  Mapping description: [FIN7](https://attack.mitre.org/groups/G0046)\
+    \ has used TightVNC to control compromised hosts.(Citation: CrowdStrike Carbon\
+    \ Spider August 2021) |\n\nID: G0117 | Name: Fox Kitten | Source Type: group |\
+    \  Mapping Type: uses |  Mapping description: [Fox Kitten](https://attack.mitre.org/groups/G0117)\
+    \ has installed TightVNC server and client on compromised servers and endpoints\
+    \ for lateral movement.(Citation: CISA AA20-259A Iran-Based Actor September 2020)\
+    \ |\n\nID: G0036 | Name: GCMAN | Source Type: group |  Mapping Type: uses |  Mapping\
+    \ description: [GCMAN](https://attack.mitre.org/groups/G0036) uses VNC for lateral\
+    \ movement.(Citation: Securelist GCMAN) |\n\nID: G0047 | Name: Gamaredon Group\
+    \ | Source Type: group |  Mapping Type: uses |  Mapping description: [Gamaredon\
+    \ Group](https://attack.mitre.org/groups/G0047) has used VNC tools, including\
+    \ UltraVNC, to remotely interact with compromised hosts.(Citation: Symantec Shuckworm\
+    \ January 2022)(Citation: Microsoft Actinium February 2022)(Citation: Unit 42\
+    \ Gamaredon February 2022) |\n\nID: S0484 | Name: Carberp | Source Type: software\
+    \ |  Mapping Type: uses |  Mapping description: [Carberp](https://attack.mitre.org/software/S0484)\
+    \ can start a remote VNC session by downloading a new plugin.(Citation: Prevx\
+    \ Carberp March 2011) |\n\nID: S1014 | Name: DanBot | Source Type: software |\
+    \  Mapping Type: uses |  Mapping description: [DanBot](https://attack.mitre.org/software/S1014)\
+    \ can use VNC for remote access to targeted systems.(Citation: ClearSky Siamesekitten\
+    \ August 2021) |\n\nID: S0279 | Name: Proton | Source Type: software |  Mapping\
+    \ Type: uses |  Mapping description: [Proton](https://attack.mitre.org/software/S0279)\
+    \ uses VNC to connect into systems.(Citation: objsee mac malware 2017) |\n\nID:\
+    \ S0266 | Name: TrickBot | Source Type: software |  Mapping Type: uses |  Mapping\
+    \ description: [TrickBot](https://attack.mitre.org/software/S0266) has used a\
+    \ VNC module to monitor the victim and collect information to pivot to valuable\
+    \ systems on the network (Citation: Trickbot VNC module July 2021)(Citation: Bitdefender\
+    \ Trickbot VNC module Whitepaper 2021) |\n\nID: S0670 | Name: WarzoneRAT | Source\
+    \ Type: software |  Mapping Type: uses |  Mapping description: [WarzoneRAT](https://attack.mitre.org/software/S0670)\
+    \ has the ability of performing remote desktop access via a VNC console.(Citation:\
+    \ Check Point Warzone Feb 2020) |\n\nID: S0412 | Name: ZxShell | Source Type:\
+    \ software |  Mapping Type: uses |  Mapping description: [ZxShell](https://attack.mitre.org/software/S0412)\
+    \ supports functionality for VNC sessions.(Citation: Talos ZxShell Oct 2014) |\n\
+    \nMitigations:\n\nMitigation ID: M1047 | Mitigation name: Audit | Description:\
+    \ Perform audits or scans of systems, permissions, insecure software, insecure\
+    \ configurations, etc. to identify potential weaknesses. |\n\nMitigation ID: M1042\
+    \ | Mitigation name: Disable or Remove Feature or Program | Description: Remove\
+    \ or deny access to unnecessary and potentially vulnerable software to prevent\
+    \ abuse by adversaries. |\n\nMitigation ID: M1037 | Mitigation name: Filter Network\
+    \ Traffic | Description: Use network appliances to filter ingress or egress traffic\
+    \ and perform protocol-based filtering. Configure software on endpoints to filter\
+    \ network traffic. |\n\nMitigation ID: M1033 | Mitigation name: Limit Software\
+    \ Installation | Description: Block users or groups from installing unapproved\
+    \ software. |\n\nDetection:\n\nUse of VNC may be legitimate depending on the environment\
+    \ and how it\u2019s used. Other factors, such as access patterns and activity\
+    \ that occurs after a remote login, may indicate suspicious or malicious behavior\
+    \ using VNC.\n\nOn macOS systems <code>log show --predicate 'process = \"screensharingd\"\
+    \ and eventMessage contains \"Authentication:\"'</code> can be used to review\
+    \ incoming VNC connection attempts for suspicious activity.(Citation: Apple Unified\
+    \ Log Analysis Remote Login and Screen Sharing)\n\nMonitor for use of built-in\
+    \ debugging environment variables (such as those containing credentials or other\
+    \ sensitive information) as well as test/default users on VNC servers, as these\
+    \ can leave openings for adversaries to abuse.(Citation: Gnome Remote Desktop\
+    \ grd-settings)(Citation: Gnome Remote Desktop gschema)"
+  questions_and_answers:
+  - answer: 'Sub-technique Remote Services: VNC can be applicable to platforms Linux,
+      Windows, macOS'
+    question: 'To which platform sub-technique Remote Services: VNC (T1021.005) is
+      applicable?'
+  - answer: Virtual Network Computing (VNC) is a platform-independent desktop sharing
+      system that allows users to remotely control another computer's display by relaying
+      the screen, mouse, and keyboard inputs over the network using the Remote Framebuffer
+      (RFB) protocol. Unlike Remote Desktop Protocol (RDP), which is resource-sharing
+      software, VNC is specifically screen-sharing software. VNC is designed to share
+      the display of the remote computer, while RDP is used to share resources such
+      as files and printers.
+    question: What is Virtual Network Computing (VNC) and how does it differ from
+      Remote Desktop Protocol (RDP)?
+  - answer: 'Adversaries might abuse VNC by using valid accounts to remotely control
+      and monitor a system, performing actions as the logged-on user, such as opening
+      documents, downloading files, and executing arbitrary commands. They could also
+      collect data and pivot to other systems within the network. Some VNC implementations
+      have vulnerabilities that adversaries could exploit, including susceptibility
+      to brute force attacks and memory usage exploitation. Additionally, certain
+      VNC libraries have been found vulnerable to authentication bypass and other
+      security flaws.'
+    question: How might adversaries abuse VNC in a network, and what vulnerabilities
+      could they exploit?
+- context: "Title: Obfuscated Files or Information\n\nDescription: Adversaries may\
+    \ attempt to make an executable or file difficult to discover or analyze by encrypting,\
+    \ encoding, or otherwise obfuscating its contents on the system or in transit.\
+    \ This is common behavior that can be used across different platforms and the\
+    \ network to evade defenses. \n\nPayloads may be compressed, archived, or encrypted\
+    \ in order to avoid detection. These payloads may be used during Initial Access\
+    \ or later to mitigate detection. Sometimes a user's action may be required to\
+    \ open and [Deobfuscate/Decode Files or Information](https://attack.mitre.org/techniques/T1140)\
+    \ for [User Execution](https://attack.mitre.org/techniques/T1204). The user may\
+    \ also be required to input a password to open a password protected compressed/encrypted\
+    \ file that was provided by the adversary. (Citation: Volexity PowerDuke November\
+    \ 2016) Adversaries may also use compressed or archived scripts, such as JavaScript.\
+    \ \n\nPortions of files can also be encoded to hide the plain-text strings that\
+    \ would otherwise help defenders with discovery. (Citation: Linux/Cdorked.A We\
+    \ Live Security Analysis) Payloads may also be split into separate, seemingly\
+    \ benign files that only reveal malicious functionality when reassembled. (Citation:\
+    \ Carbon Black Obfuscation Sept 2016)\n\nAdversaries may also abuse [Command Obfuscation](https://attack.mitre.org/techniques/T1027/010)\
+    \ to obscure commands executed from payloads or directly via [Command and Scripting\
+    \ Interpreter](https://attack.mitre.org/techniques/T1059). Environment variables,\
+    \ aliases, characters, and other platform/language specific semantics can be used\
+    \ to evade signature based detections and application control mechanisms. (Citation:\
+    \ FireEye Obfuscation June 2017) (Citation: FireEye Revoke-Obfuscation July 2017)(Citation:\
+    \ PaloAlto EncodedCommand March 2017) \n\nMetadata:\n\nID: T1027\n\nRelated Tactics\
+    \ (the tactic objectives that T1027 can be used to accomplish): Defense Evasion\n\
+    \nURL: https://attack.mitre.org/techniques/T1027\n\nPlatforms (the system the\
+    \ adversary is operating within): Linux, Windows, macOS\n\nProcedure Examples\
+    \ (usage examples):\n\nID: C0025 | Name: 2016 Ukraine Electric Power Attack |\
+    \ Source Type: campaign |  Mapping Type: uses |  Mapping description: During the\
+    \ [2016 Ukraine Electric Power Attack](https://attack.mitre.org/campaigns/C0025),\
+    \ [Sandworm Team](https://attack.mitre.org/groups/G0034) used heavily obfuscated\
+    \ code with [Industroyer](https://attack.mitre.org/software/S0604) in its Windows\
+    \ Notepad backdoor.(Citation: ESET Industroyer) |\n\nID: C0015 | Name: C0015 |\
+    \ Source Type: campaign |  Mapping Type: uses |  Mapping description: During [C0015](https://attack.mitre.org/campaigns/C0015),\
+    \ the threat actors used Base64-encoded strings.(Citation: DFIR Conti Bazar Nov\
+    \ 2021) |\n\nID: C0017 | Name: C0017 | Source Type: campaign |  Mapping Type:\
+    \ uses |  Mapping description: During [C0017](https://attack.mitre.org/campaigns/C0017),\
+    \ [APT41](https://attack.mitre.org/groups/G0096) broke malicious binaries, including\
+    \ [DEADEYE](https://attack.mitre.org/software/S1052) and [KEYPLUG](https://attack.mitre.org/software/S1051),\
+    \ into multiple sections on disk to evade detection.(Citation: Mandiant APT41)\
+    \ |\n\nID: C0002 | Name: Night Dragon | Source Type: campaign |  Mapping Type:\
+    \ uses |  Mapping description: During [Night Dragon](https://attack.mitre.org/campaigns/C0002),\
+    \ threat actors used a DLL that included an XOR-encoded section.(Citation: McAfee\
+    \ Night Dragon) |\n\nMitigations:\n\nMitigation ID: M1049 | Mitigation name: Antivirus/Antimalware\
+    \ | Description: Use signatures or heuristics to detect malicious software. |\n\
+    \nMitigation ID: M1047 | Mitigation name: Audit | Description: Perform audits\
+    \ or scans of systems, permissions, insecure software, insecure configurations,\
+    \ etc. to identify potential weaknesses. |\n\nMitigation ID: M1040 | Mitigation\
+    \ name: Behavior Prevention on Endpoint | Description: Use capabilities to prevent\
+    \ suspicious behavior patterns from occurring on endpoint systems. This could\
+    \ include suspicious process, file, API call, etc. behavior. |\n\nMitigation ID:\
+    \ M1017 | Mitigation name: User Training | Description: Train users to be aware\
+    \ of access or manipulation attempts by an adversary to reduce the risk of successful\
+    \ spearphishing, social engineering, and other techniques that involve user interaction.\
+    \ |\n\nDetection:\n\nDetection of file obfuscation is difficult unless artifacts\
+    \ are left behind by the obfuscation process that are uniquely detectable with\
+    \ a signature. If detection of the obfuscation itself is not possible, it may\
+    \ be possible to detect the malicious activity that caused the obfuscated file\
+    \ (for example, the method that was used to write, read, or modify the file on\
+    \ the file system). \n\nFlag and analyze commands containing indicators of obfuscation\
+    \ and known suspicious syntax such as uninterpreted escape characters like '''^'''\
+    \ and '''\"'''. Windows' Sysmon and Event ID 4688 displays command-line arguments\
+    \ for processes. Deobfuscation tools can be used to detect these indicators in\
+    \ files/payloads. (Citation: GitHub Revoke-Obfuscation) (Citation: FireEye Revoke-Obfuscation\
+    \ July 2017) (Citation: GitHub Office-Crackros Aug 2016) \n\nObfuscation used\
+    \ in payloads for Initial Access can be detected at the network. Use network intrusion\
+    \ detection systems and email gateway filtering to identify compressed and encrypted\
+    \ attachments and scripts. Some email attachment detonation systems can open compressed\
+    \ and encrypted attachments. Payloads delivered over an encrypted connection from\
+    \ a website require encrypted network traffic inspection. \n\nThe first detection\
+    \ of a malicious tool may trigger an anti-virus or other security tool alert.\
+    \ Similar events may also occur at the boundary through network IDS, email scanning\
+    \ appliance, etc. The initial detection should be treated as an indication of\
+    \ a potentially more invasive intrusion. The alerting system should be thoroughly\
+    \ investigated beyond that initial alert for activity that was not detected. Adversaries\
+    \ may continue with an operation, assuming that individual events like an anti-virus\
+    \ detect will not be investigated or that an analyst will not be able to conclusively\
+    \ link that event to other activity occurring on the network."
+  questions_and_answers:
+  - answer: The described procedure is mapped to the MITRE ATT&CK technique Obfuscated
+      Files or Information (T1027).
+    question: 'Map the following procedure to a MITRE ATT&CK technique: During the
+      2016 Ukraine Electric Power Attack, the Sandworm Team used heavily obfuscated
+      code with Industroyer in its Windows Notepad backdoor.'
+  - answer: Adversaries may obfuscate payloads by compressing, archiving, or encrypting
+      them to avoid detection during Initial Access. These techniques make it more
+      difficult for defenders to discover or analyze the malicious files. In some
+      cases, the user may need to perform actions like entering a password or deobfuscating
+      the file to execute it, which further helps the adversary evade detection.
+    question: How do adversaries use obfuscation to evade detection during Initial
+      Access?
+  - answer: 'Adversaries might use command obfuscation techniques, such as environment
+      variables, aliases, or special characters, to obscure commands executed from
+      payloads or directly via a Command and Scripting Interpreter. This is effective
+      because it can evade signature-based detection mechanisms and application control
+      systems, making it harder for defenders to identify and mitigate the malicious
+      activities.'
+    question: What methods might adversaries use to obscure the commands they execute,
+      and why is this effective?
+- context: 'Title: Masquerading: Space after Filename
+
+
+    Description: Adversaries can hide a program''s true filetype by changing the extension
+    of a file. With certain file types (specifically this does not work with .app
+    extensions), appending a space to the end of a filename will change how the file
+    is processed by the operating system.
+
+
+    For example, if there is a Mach-O executable file called <code>evil.bin</code>,
+    when it is double clicked by a user, it will launch Terminal.app and execute.
+    If this file is renamed to <code>evil.txt</code>, then when double clicked by
+    a user, it will launch with the default text editing application (not executing
+    the binary). However, if the file is renamed to <code>evil.txt </code> (note the
+    space at the end), then when double clicked by a user, the true file type is determined
+    by the OS and handled appropriately and the binary will be executed (Citation:
+    Mac Backdoors are back).
+
+
+    Adversaries can use this feature to trick users into double clicking benign-looking
+    files of any format and ultimately executing something malicious.
+
+
+    Metadata:
+
+
+    ID: T1036.006
+
+
+    Related Tactics (the tactic objectives that T1036.006 can be used to accomplish):
+    Defense Evasion
+
+
+    Sub-technique of: T1036
+
+
+    URL: https://attack.mitre.org/techniques/T1036/006
+
+
+    Platforms (the system the adversary is operating within): Linux, macOS
+
+
+    Permissions  required (the lowest level of permission the adversary is required
+    to be operating within to perform T1036.006): User
+
+
+    Procedure Examples (usage examples):
+
+
+    ID: S0276 | Name: Keydnap | Source Type: software |  Mapping Type: uses |  Mapping
+    description: [Keydnap](https://attack.mitre.org/software/S0276) puts a space after
+    a false .jpg extension so that execution actually goes through the Terminal.app
+    program.(Citation: synack 2016 review) |
+
+
+    Detection:
+
+
+    It''s not common for spaces to be at the end of filenames, so this is something
+    that can easily be checked with file monitoring. From the user''s perspective
+    though, this is very hard to notice from within the Finder.app or on the command-line
+    in Terminal.app. Processes executed from binaries containing non-standard extensions
+    in the filename are suspicious.'
+  questions_and_answers:
+  - answer: 'The described method relates to the sub-technique Masquerading: Space
+      after Filename (T1036.006), which is a sub-technique of the broader technique
+      Masquerading (T1036). This technique falls under the Defense Evasion tactic.
+      Therefore, the sub-technique is mapped to the Defense Evasion tactic.'
+    question: 'Map the following sub-technique description to a MITRE ATT&CK tactic:
+      Adversaries can hide a program''s true file type by changing the file extension.
+      With certain file types (excluding those with a `.app` extension), appending
+      a space to the end of a filename can alter how the file is processed by the
+      operating system.'
+  - answer: Adversaries exploit the "space after filename" technique by appending
+      a space to the end of a file's name after changing its extension. This causes
+      the operating system to recognize the file's true type and execute it accordingly,
+      even though it appears to be a benign file, such as a text document. For example,
+      renaming a Mach-O executable from `evil.bin` to `evil.txt ` (with a space at
+      the end) tricks the OS into executing the binary, while the user may mistakenly
+      believe they are opening a harmless text file.
+    question: How do adversaries exploit the "space after filename" technique to trick
+      users into executing malicious programs?
+  - answer: Detecting the "space after filename" technique is challenging for users
+      because the space at the end of the filename is nearly invisible in file browsers
+      like Finder.app or in command-line interfaces like Terminal.app. However, this
+      technique can be identified through file monitoring, as it is uncommon for filenames
+      to have trailing spaces. Additionally, processes that execute from binaries
+      with non-standard file extensions are considered suspicious and can serve as
+      indicators of this technique being used.
+    question: What makes detecting the "space after filename" technique challenging
+      for users, and how can it be identified?
+    document:
+      repo: https://github.com/yosimass1/knowledge
+      commit: 1e26779b22c19d68666264b4ca88ca456f1d3e2e
+      patterns:
+        - mitre/*.md
