@@ -519,4 +519,5 @@ seed_examples:
 document:
   repo: https://github.com/yosimass1/knowledge
   commit: 1e26779b22c19d68666264b4ca88ca456f1d3e2e
-  patterns: "mitre/*.md"
+  patterns:
+  - "mitre/*.md"
