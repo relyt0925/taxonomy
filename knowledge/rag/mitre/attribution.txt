@@ -1,0 +1,5 @@
+Title of work: Mitre
+Link to work: https://attack.mitre.org/
+Revision: 1
+License of the work: CC-BY-SA-4.0
+Creator names: Mitre
