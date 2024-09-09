@@ -229,7 +229,7 @@ seed_examples:
     \ enable users to remotely control another computer\u2019s display by relaying\
     \ the screen, mouse, and keyboard inputs over the network.(Citation: The Remote\
     \ Framebuffer Protocol)\n\nVNC differs from \
-    \[Remote Desktop Protocol](https://attack.mitre.org/techniques/T1021/001)\
+    \ [Remote Desktop Protocol](https://attack.mitre.org/techniques/T1021/001)\
     \ as VNC is screen-sharing software rather than resource-sharing software. By\
     \ default, VNC uses the system's authentication, but it can be configured to use\
     \ credentials specific to VNC.(Citation: MacOS VNC software for Remote Desktop)(Citation:\
@@ -277,7 +277,7 @@ seed_examples:
     \ has the ability of performing remote desktop access via a VNC console.(Citation:\
     \ Check Point Warzone Feb 2020) |\n\nID: S0412 | Name: ZxShell | Source Type:\
     \ software |  Mapping Type: uses |  Mapping description: \
-    \[ZxShell](https://attack.mitre.org/software/S0412)\
+    \ [ZxShell](https://attack.mitre.org/software/S0412)\
     \ supports functionality for VNC sessions.(Citation: Talos ZxShell Oct 2014) |\n\
     \nMitigations:\n\nMitigation ID: M1047 | Mitigation name: Audit | Description:\
     \ Perform audits or scans of systems, permissions, insecure software, insecure\
@@ -341,7 +341,7 @@ seed_examples:
     \ Live Security Analysis) Payloads may also be split into separate, seemingly\
     \ benign files that only reveal malicious functionality when reassembled. (Citation:\
     \ Carbon Black Obfuscation Sept 2016)\n\nAdversaries may also abuse\
-    \[Command Obfuscation](https://attack.mitre.org/techniques/T1027/010)\
+    \ [Command Obfuscation](https://attack.mitre.org/techniques/T1027/010)\
     \ to obscure commands executed from payloads or directly via [Command and Scripting\
     \ Interpreter](https://attack.mitre.org/techniques/T1059). Environment variables,\
     \ aliases, characters, and other platform/language specific semantics can be used\
@@ -358,7 +358,7 @@ seed_examples:
     \ code with [Industroyer](https://attack.mitre.org/software/S0604) in its Windows\
     \ Notepad backdoor.(Citation: ESET Industroyer) |\n\nID: C0015 | Name: C0015 |\
     \ Source Type: campaign |  Mapping Type: uses |  Mapping description: During \
-    \[C0015](https://attack.mitre.org/campaigns/C0015),\
+    \ [C0015](https://attack.mitre.org/campaigns/C0015),\
     \ the threat actors used Base64-encoded strings.(Citation: DFIR Conti Bazar Nov\
     \ 2021) |\n\nID: C0017 | Name: C0017 | Source Type: campaign |  Mapping Type:\
     \ uses |  Mapping description: During [C0017](https://attack.mitre.org/campaigns/C0017),\
